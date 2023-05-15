@@ -1,0 +1,128 @@
+mysql> create database kims;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use kims;
+Database changed
+mysql> create table patient(patiid int(10),patiname varchar(20),patidisease varchar(25),address varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc patient;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| patiid      | int(10)     | YES  |     | NULL    |       |
+| patiname    | varchar(20) | YES  |     | NULL    |       |
+| patidisease | varchar(25) | YES  |     | NULL    |       |
+| address     | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table patient add fee int(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc patient;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| patiid      | int(10)     | YES  |     | NULL    |       |
+| patiname    | varchar(20) | YES  |     | NULL    |       |
+| patidisease | varchar(25) | YES  |     | NULL    |       |
+| address     | varchar(10) | YES  |     | NULL    |       |
+| fee         | int(10)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> create table doctor(name varchar(10),docid int(10),address varchar(11),salary int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table test(tname varchar(10),tcost int(10),ttime int(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_kims |
++----------------+
+| doctor         |
+| patient        |
+| test           |
++----------------+
+3 rows in set (0.00 sec)
+mysql> select*from patient where fee=1000;
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      3 | laxi     | cough       | madurai | 1000 |
++--------+----------+-------------+---------+------+
+1 row in set (0.01 sec)
+
+mysql> select*from patient where patidisease like 'h%';
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      4 | pooji    | headache    | hisser  | 1500 |
++--------+----------+-------------+---------+------+
+1 row in set (0.01 sec)
+
+mysql> select*from patient where patidisease like '-e%';
+Empty set (0.00 sec)
+
+mysql> select*from patient where patidisease like 'e%';
+Empty set (0.00 sec)
+
+mysql> select*from patient where patidisease like '%e%';
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      1 | swathi   | fever       | mumbai  |  500 |
+|      4 | pooji    | headache    | hisser  | 1500 |
++--------+----------+-------------+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> select*from patient where patidisease like '%e';
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      4 | pooji    | headache    | hisser  | 1500 |
++--------+----------+-------------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select*from patient where patidisease like'--v--r';
+Empty set (0.00 sec)
+
+mysql> select*from patient where patidisease like'--v-r';
+Empty set (0.00 sec)
+
+mysql> select*from patient where patidisease like'f-v-r';
+Empty set (0.00 sec)
+
+mysql> select*from patient where patidisease like'_v_r';
+Empty set (0.00 sec)
+
+mysql> select*from patient;
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      1 | swathi   | fever       | mumbai  |  500 |
+|      2 | sneha    | cold        | chennai |  500 |
+|      3 | laxi     | cough       | madurai | 1000 |
+|      4 | pooji    | headache    | hisser  | 1500 |
++--------+----------+-------------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select*from patient where patiid between 3 and 9;
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      3 | laxi     | cough       | madurai | 1000 |
+|      4 | pooji    | headache    | hisser  | 1500 |
++--------+----------+-------------+---------+------+
+2 rows in set (0.01 sec)
+
+mysql> select patiname from patient where address in('chennai');
++----------+
+| patiname |
++----------+
+| sneha    |
++----------+
+1 row in set (0.00 sec)

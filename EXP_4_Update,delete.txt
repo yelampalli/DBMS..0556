@@ -1,0 +1,109 @@
+mysql> show tables;
++----------------+
+| Tables_in_kims |
++----------------+
+| doctor         |
+| patient        |
+| test           |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> drop table test;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_kims |
++----------------+
+| doctor         |
+| patient        |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into patient values(1,'swathi','fever','mumbai',500);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patient values(2,'machi','cold','chennai',500);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patient values(3,'laxi','cough','madurai',1000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patient values(4,'honey','headache','hisser',1500);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> desc patient;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| patiid      | int(10)     | YES  |     | NULL    |       |
+| patiname    | varchar(20) | YES  |     | NULL    |       |
+| patidisease | varchar(25) | YES  |     | NULL    |       |
+| address     | varchar(10) | YES  |     | NULL    |       |
+| fee         | int(10)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> alter table patient add primary key(patiid);
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> alter table patient add unique(patiname);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc patient;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| patiid      | int(10)     | NO   | PRI | 0       |       |
+| patiname    | varchar(20) | YES  | UNI | NULL    |       |
+| patidisease | varchar(25) | YES  |     | NULL    |       |
+| address     | varchar(10) | YES  |     | NULL    |       |
+| fee         | int(10)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select*from patient;
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      1 | swathi   | fever       | mumbai  |  500 |
+|      2 | sneha    | cold        | chennai |  500 |
+|      3 | laxi     | cough       | madurai | 1000 |
+|      4 | pooji    | headache    | hisser  | 1500 |
++--------+----------+-------------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> update patient set patiname='kavya' where patiid=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> update patient set patiname='madhu' where patidisease='cold';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from patient;
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      1 | swathi   | fever       | mumbai  |  500 |
+|      2 | madhu    | cold        | chennai |  500 |
+|      3 | laxi     | cough       | madurai | 1000 |
+|      4 | kavya    | headache    | hisser  | 1500 |
++--------+----------+-------------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> delete from patient where patiname='laxi';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from patient;
++--------+----------+-------------+---------+------+
+| patiid | patiname | patidisease | address | fee  |
++--------+----------+-------------+---------+------+
+|      1 | swathi   | fever       | mumbai  |  500 |
+|      2 | madhu    | cold        | chennai |  500 |
+|      4 | kavya    | headache    | hisser  | 1500 |
++--------+----------+-------------+---------+------+
+3 rows in set (0.00 sec)
